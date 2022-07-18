@@ -2,7 +2,9 @@ package com.example.demo.api;
 
 import com.example.demo.dto.ArticleDto;
 import com.example.demo.dto.ArticleQueryCondition;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +20,12 @@ import java.util.List;
 public class ArticleApi {
 
     @GetMapping("query")
-    public List<ArticleDto> query(ArticleQueryCondition condition) {
+    public List<ArticleDto> query(@ParameterObject ArticleQueryCondition condition) {
         return new LinkedList<>();
     }
 
     @PostMapping(value = "create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ArticleDto create(ArticleDto dto, @RequestPart MultipartFile file) {
+    public ArticleDto create(@Schema(description = "title") @RequestPart String title, @Schema(description = "content") @RequestPart String content, @RequestPart MultipartFile file) {
         return new ArticleDto();
     }
 }
